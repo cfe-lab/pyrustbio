@@ -1,0 +1,15 @@
+[package]
+name = "pyrustbio"
+version = "0.1.0"
+authors = ["jeff-k <jeff@x-0.ca>"]
+
+[lib]
+name = "pyrustbio"
+crate-type = ["cdylib"]
+
+[dependencies]
+bio = "*"
+
+[dependencies.pyo3]
+version = "0.2"
+default-features = false

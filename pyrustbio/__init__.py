@@ -1,7 +1,8 @@
 from . import _pyrustbio
 
-def pairwise(ref, alt, g_o, g_e):
-    return _pyrustbio.affine(ref, alt, g_o, g_e)
+def pairwise(query, ref, g_o, g_e):
+    score, pretty = _pyrustbio.affine(query, ref, g_o, g_e)
+    return score, pretty.split('\n')[0:3]
 
-def levenshtein(ref, alt):
-    return _pyrustbio.levenshtein(ref, alt)
+def levenshtein(a, b):
+    return _pyrustbio.levenshtein(a, b)

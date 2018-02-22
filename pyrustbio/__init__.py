@@ -6,3 +6,8 @@ def pairwise(query, ref, g_o, g_e):
 
 def levenshtein(a, b):
     return _pyrustbio.levenshtein(a, b)
+
+def align_it(ref, query, g_o, g_e, terminal_p):
+    score, pretty = _pyrustbio.affine(query, ref, g_o, g_e)
+    ref_a, _, query_a = pretty.split('\n')[0:3]
+    return ref_a.replace(' ', '-'), query_a.replace(' ', '-'), score

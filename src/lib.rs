@@ -7,7 +7,7 @@ use pyo3::prelude::*;
 
 use bio::alignment::distance::levenshtein;
 use bio::alignment::pairwise::Aligner;
-use bio::scores::blosum62::blosum62;
+//use bio::scores::blosum62::blosum62;
 
 #[py::modinit(_pyrustbio)]
 fn init(py: Python, m: &PyModule) -> PyResult<()> {
@@ -19,8 +19,15 @@ fn init(py: Python, m: &PyModule) -> PyResult<()> {
 
     #[pyfn(m, "affine")]
     fn py_affine(_py: Python, q: String, r: String,
-                  gop: i32, gep: i32) -> PyResult<&PyList> {
-        let mut a = Aligner::with_capacity(q.len(), r.len(), gop, gep, &blosum62);
+                  gop: i32, gep: i32, m: i32, mm: i32) -> PyResult<&PyList> {
+        let m = |a, b| -> i32 {
+            if a == b {
+                return m
+            } else {
+                return mm
+            }
+        };
+        let mut a = Aligner::with_capacity(q.len(), r.len(), gop, gep, &m);
         let (q_b, r_b) = (q.into_bytes(), r.into_bytes());
         let alnmnt = a.semiglobal(&q_b, &r_b);
 

@@ -20,14 +20,14 @@ fn init(py: Python, m: &PyModule) -> PyResult<()> {
     #[pyfn(m, "affine")]
     fn py_affine(_py: Python, q: String, r: String,
                   gop: i32, gep: i32, m: i32, mm: i32) -> PyResult<&PyList> {
-        let m = |a, b| -> i32 {
+        let matchfn = |a, b| -> i32 {
             if a == b {
                 return m
             } else {
                 return mm
             }
         };
-        let mut a = Aligner::with_capacity(q.len(), r.len(), gop, gep, &m);
+        let mut a = Aligner::with_capacity(q.len(), r.len(), gop, gep, &matchfn);
         let (q_b, r_b) = (q.into_bytes(), r.into_bytes());
         let alnmnt = a.semiglobal(&q_b, &r_b);
 

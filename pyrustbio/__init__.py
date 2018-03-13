@@ -9,5 +9,5 @@ def levenshtein(a, b):
 
 def align_it(ref, query, g_o, g_e, terminal_p):
     score, pretty = _pyrustbio.affine(query, ref, -1 * g_o, -1 * g_e, 5, -4)
-    ref_a, _, query_a = pretty.split('\n')[0:3]
+    query_a, _, ref_a = pretty.split('\n')[0:3]
     return ref_a.replace(' ', '-'), query_a.replace(' ', '-'), score
